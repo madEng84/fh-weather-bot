@@ -53,8 +53,8 @@ def get_weather(city, date):
     speech = "The forecast for"+city+" for "+date+"is "+condition
     return {
         "speech":speech,
-        "displatText":speech,
-        "source":"frankhood-weather-webhook"
+        "displayText":speech,
+        "source":"fh-weather-webhook"
     }
 
 class DateError(Exception):
@@ -70,28 +70,31 @@ class OpenWeather(object):
     def get_weather(city, date):
         try:
             r = requests.get("http://api.openweathermap.org/data/2.5/forecast?q={city_name}&appid={app_id}"
-                         "".format(app_id=OPENWEATHER_APP_ID,
-                                   city_name=city))
+                             "".format(app_id=OPENWEATHER_APP_ID,
+                                       city_name=city))
             json_r = r.json()
             response_code = json_r['cod']
             if int(response_code) == 200:
                 weathers = json_r['list']
-                # for i in range(30):
-                #    if date in weathers[i]['dt_txt']:
-                #        condition = weather[i]['weather'][0]['description']
-                #        icon_url = self.icon_base_url + weather[i]['weather'][0]['icon']
-                #        return conditon
-                for _weather in weathers:
-                    if date in _weather['dt_txt']:
-                        condition = _weather['weather'][0]['description']
-                        icon_url = self.icon_base_url + _weather['weather'][0]['icon']
-                        return conditon
-                raise DateError("No results for this date")
+                for i in range(30):
+                   if date in weathers[i]['dt_txt']:
+                       condition = weather[i]['weather'][0]['description']
+                       icon_url = self.icon_base_url + weather[i]['weather'][0]['icon']
+                       return conditon
+                # for _weather in weathers:
+                #     if date in _weather['dt_txt']:
+                #         condition = _weather['weather'][0]['description']
+                #         icon_url = self.icon_base_url + _weather['weather'][0]['icon']
+                #         return conditon
+                #raise DateError("No results for this date")
+                return "DateError"
             else:
-                raise OpenWeatherError("Exception Calling OpenWeather : response code was "+response_code)
+                #raise OpenWeatherError("Exception Calling OpenWeather : response code was "+response_code)
+                return "OpenWeatherError "+response_code
         except Exception as ex:
-            print(ex)
-            raise OpenWeatherError("Exception Calling OpenWeather : "+ex)
+            #print(ex)
+            #raise OpenWeatherError("Exception Calling OpenWeather : "+ex)
+            return "OpenWeatherError"
 
 
                 
