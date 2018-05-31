@@ -86,12 +86,12 @@ class OpenWeather(object):
                     if date.date() == slot_date.date():
                        condition = weathers[i]['weather'][0]['description']
                        icon_url = self.icon_base_url + weathers[i]['weather'][0]['icon']
-                       return conditon
+                       return condition
                 # for _weather in weathers:
                 #     if date in _weather['dt_txt']:
                 #         condition = _weather['weather'][0]['description']
                 #         icon_url = self.icon_base_url + _weather['weather'][0]['icon']
-                #         return conditon
+                #         return condition
                 raise DateError("No results for this date")
                 #return "DateError"
             else:
