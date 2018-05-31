@@ -84,8 +84,8 @@ class OpenWeather(object):
                     slot_date = parse(weathers[i]['dt_txt'])
                     print("Check date : {d1} == {d2}?".format(d1=date,d2=slot_date))
                     if date.date() == slot_date.date():
-                       condition = weather[i]['weather'][0]['description']
-                       icon_url = self.icon_base_url + weather[i]['weather'][0]['icon']
+                       condition = weathers[i]['weather'][0]['description']
+                       icon_url = self.icon_base_url + weathers[i]['weather'][0]['icon']
                        return conditon
                 # for _weather in weathers:
                 #     if date in _weather['dt_txt']:
