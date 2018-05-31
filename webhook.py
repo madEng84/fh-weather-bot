@@ -51,10 +51,9 @@ def makeResponse(req):
 
 def get_weather(city, date):
     weather_condition = OpenWeather().get_weather(city, date)
-    speech = "The forecast for"+city+" for "+date+"is "+weather_condition
+    speech = "The forecast for "+city+" for "+date+" is "+weather_condition
     return {
-        "speech":speech,
-        "displayText":speech,
+        "fulfillmentText":speech,
         "source":"fh-weather-webhook"
     }
 
