@@ -42,9 +42,9 @@ def makeResponse(req):
       "source":""
     }
     """
-    result = req.get('result')
+    result = req.get('queryResult') # result -> queryResult
     parameters = result.get('parameters')
-    city = parameters.get('city')
+    city = parameters.get('geo-city') # city -> geo-city
     date = parameters.get('date')
     return get_weather(city,date)
 
