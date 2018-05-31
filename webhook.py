@@ -54,7 +54,7 @@ def get_weather(city, date):
     try:
         speech = "The forecast for "+city+" for "+date+" is "+weather_condition
     except Exception as ex:
-        speech = "Error handling the request: {}".format(ex)
+        speech = "Error handling the request: {0}".format(str(ex))
     return {
         "fulfillmentText":speech,
         "source":"fh-weather-webhook"
@@ -99,7 +99,7 @@ class OpenWeather(object):
                 #return "OpenWeatherError "+response_code
         except Exception as ex:
             #print(ex)
-            raise OpenWeatherError("Exception Calling OpenWeather : "+ex)
+            raise OpenWeatherError("Exception Calling OpenWeather : "+str(ex))
             #return "OpenWeatherError"
 
 
