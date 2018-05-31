@@ -50,7 +50,7 @@ def makeResponse(req):
 
 def get_weather(city, date):
     weather_condition = OpenWeather().get_weather(city, date)
-    speech = "The forecast for"+city+" for "+date+"is "+condition
+    speech = "The forecast for"+city+" for "+date+"is "+weather_condition
     return {
         "speech":speech,
         "displayText":speech,
