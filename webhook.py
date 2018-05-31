@@ -1,6 +1,7 @@
 import json
 import os
 import requests
+from dateutil.parser import parse
 
 from flask import (Flask, request, make_response)
 
@@ -66,7 +67,7 @@ class OpenWeatherError(Exception):
 class OpenWeather(object):
     app_id=OPENWEATHER_APP_ID
     icon_base_url = "http://openweathermap.org/img/w/"#01d.png
-    
+
     def get_weather(self, city, date):
         try:
             r = requests.get("http://api.openweathermap.org/data/2.5/forecast?q={city_name}&appid={app_id}"
@@ -74,10 +75,13 @@ class OpenWeather(object):
                                        city_name=city))
             json_r = r.json()
             response_code = json_r['cod']
+            date = parse(date)
             if int(response_code) == 200:
                 weathers = json_r['list']
                 for i in range(30):
-                   if date in weathers[i]['dt_txt']:
+                    slot_date = parse(weathers[i]['dt_txt'])
+                    print("Check date : {d1} == {d2}?".format(d1=date,d2=slot_date))
+                    if date.date() == slot_date.date():
                        condition = weather[i]['weather'][0]['description']
                        icon_url = self.icon_base_url + weather[i]['weather'][0]['icon']
                        return conditon
