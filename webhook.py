@@ -51,7 +51,10 @@ def makeResponse(req):
 
 def get_weather(city, date):
     weather_condition = OpenWeather().get_weather(city, date)
-    speech = "The forecast for "+city+" for "+date+" is "+weather_condition
+    try:
+        speech = "The forecast for "+city+" for "+date+" is "+weather_condition
+    except Exception as ex:
+        speech = "Error handling the request: {}".format(ex.message)
     return {
         "fulfillmentText":speech,
         "source":"fh-weather-webhook"
@@ -89,15 +92,15 @@ class OpenWeather(object):
                 #         condition = _weather['weather'][0]['description']
                 #         icon_url = self.icon_base_url + _weather['weather'][0]['icon']
                 #         return conditon
-                #raise DateError("No results for this date")
-                return "DateError"
+                raise DateError("No results for this date")
+                #return "DateError"
             else:
-                #raise OpenWeatherError("Exception Calling OpenWeather : response code was "+response_code)
-                return "OpenWeatherError "+response_code
+                raise OpenWeatherError("Exception Calling OpenWeather : response code was "+response_code)
+                #return "OpenWeatherError "+response_code
         except Exception as ex:
             #print(ex)
-            #raise OpenWeatherError("Exception Calling OpenWeather : "+ex)
-            return "OpenWeatherError"
+            raise OpenWeatherError("Exception Calling OpenWeather : "+ex.message)
+            #return "OpenWeatherError"
 
 
                 
