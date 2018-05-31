@@ -66,8 +66,8 @@ class OpenWeatherError(Exception):
 class OpenWeather(object):
     app_id=OPENWEATHER_APP_ID
     icon_base_url = "http://openweathermap.org/img/w/"#01d.png
-
-    def get_weather(city, date):
+    
+    def get_weather(self, city, date):
         try:
             r = requests.get("http://api.openweathermap.org/data/2.5/forecast?q={city_name}&appid={app_id}"
                              "".format(app_id=OPENWEATHER_APP_ID,
